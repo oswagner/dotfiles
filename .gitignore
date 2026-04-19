@@ -1,0 +1,17 @@
+# Backups
+backup/
+
+# Arquivos locais
+*.local
+
+# macOS
+.DS_Store
+
+# Chaves SSH (nunca versionar!)
+ssh/id_*
+ssh/*.pem
+ssh/*.key
+
+# Segredos
+*.secret
+*.credentials

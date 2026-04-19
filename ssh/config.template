@@ -1,0 +1,17 @@
+Include /Users/wosantos/.colima/ssh_config
+
+# Personal GitHub Account
+
+Host github.com-personal
+HostName github.com
+User git
+IdentityFile ~/.ssh/id_ed25519_personal
+IdentitiesOnly yes
+
+# Work GitLab Account
+
+Host gitlab.com-latam
+HostName gitlab.com
+User git
+IdentityFile ~/.ssh/id_ed25519_latam
+IdentitiesOnly yes
