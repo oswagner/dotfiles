@@ -84,8 +84,13 @@ print_header "Instalando Dependências (Homebrew)"
 
 if [ -f "$DOTFILES_DIR/Brewfile" ]; then
     print_info "Instalando pacotes do Brewfile..."
-    brew bundle --file="$DOTFILES_DIR/Brewfile"
-    print_success "Dependências instaladas"
+    # Não abortar a instalação inteira se um único pacote/cask falhar.
+    if brew bundle --file="$DOTFILES_DIR/Brewfile"; then
+        print_success "Dependências instaladas"
+    else
+        print_warning "Alguns pacotes falharam. Continuando a instalação."
+        print_info "Para ver o que falta: brew bundle check --file=\"$DOTFILES_DIR/Brewfile\""
+    fi
 else
     print_warning "Brewfile não encontrado, pulando instalação de pacotes"
 fi
@@ -99,6 +104,30 @@ if [ -f "$DOTFILES_DIR/scripts/symlink.sh" ]; then
 else
     print_error "Script de symlinks não encontrado"
     exit 1
+fi
+
+# =============================================================================
+print_header "Preferências do macOS"
+# =============================================================================
+
+if [ -f "$DOTFILES_DIR/macos/.macos" ]; then
+    print_warning "O script macos/.macos altera preferências do sistema, exige sudo"
+    print_warning "e reinicia apps (Dock, Finder, SystemUIServer)."
+    read -p "Deseja aplicar as preferências do macOS agora? (y/N) " -n 1 -r
+    echo ""
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        print_info "Aplicando preferências do macOS..."
+        if bash "$DOTFILES_DIR/macos/.macos"; then
+            print_success "Preferências aplicadas (algumas exigem logout/restart)"
+        else
+            print_warning "macos/.macos terminou com erros — verifique a saída acima"
+        fi
+    else
+        print_info "Pulando preferências do macOS. Para aplicar depois:"
+        print_info "  bash ~/dotfiles/macos/.macos"
+    fi
+else
+    print_warning "macos/.macos não encontrado, pulando"
 fi
 
 # =============================================================================
