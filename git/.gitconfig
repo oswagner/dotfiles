@@ -5,3 +5,7 @@
 	email = prog.wagner@gmail.com
 [init]
 	defaultBranch = main
+[includeIf "gitdir:/Users/wosantos/Latam/**"]
+  path = /Users/wosantos/Latam/.gitconfig-local
+[core]
+	excludesfile = /Users/wosantos/.gitignore_global

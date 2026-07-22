@@ -24,6 +24,3 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
 
 # -----------------------------------------------------------------------------
-# Rust (cargo)
-# -----------------------------------------------------------------------------
-# Já configurado em path.zsh via .cargo/env

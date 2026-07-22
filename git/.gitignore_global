@@ -50,3 +50,5 @@ __pycache__/
 *.tmp
 *.temp
 .cache/
+
+**/.claude/settings.local.json

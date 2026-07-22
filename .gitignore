@@ -11,6 +11,7 @@ backup/
 ssh/id_*
 ssh/*.pem
 ssh/*.key
+ssh/config
 
 # Segredos
 *.secret
