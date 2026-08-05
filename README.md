@@ -96,12 +96,12 @@ Alguns arquivos versionados contêm caminhos absolutos com o usuário `wosantos`
 Ao instalar em **outra máquina ou usuário**, ajuste manualmente para o seu `$HOME`
 antes (ou logo após) rodar o `install.sh`:
 
-| Arquivo                       | O que ajustar                                                                                 |
-| ----------------------------- | --------------------------------------------------------------------------------------------- |
+| Arquivo                       | O que ajustar                                                                                             |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------- |
 | `git/.gitconfig`              | `includeIf "gitdir:…/Latam/**"`, `path = …/Latam/.gitconfig-local` e `excludesfile = …/.gitignore_global` |
-| `ssh/config.template`         | `Include /Users/wosantos/.colima/ssh_config` (path do Colima)                                 |
-| `scripts/setup-ssh-by-dir.sh` | `Include …/.colima/ssh_config` gerado no `ssh/config`, e os contextos `~/Latam` / `~/Personal` |
-| `shell/.zshrc`                | Linha `export PATH=".../.local/bin/codeen:$PATH"` (adicionada por instalador; específica da máquina) |
+| `ssh/config.template`         | `Include /Users/wosantos/.colima/ssh_config` (path do Colima)                                             |
+| `scripts/setup-ssh-by-dir.sh` | `Include …/.colima/ssh_config` gerado no `ssh/config`, e os contextos `~/Latam` / `~/Personal`            |
+| `shell/.zshrc`                | Linha `export PATH=".../.local/bin/codeen:$PATH"` (adicionada por instalador; específica da máquina)      |
 
 Dica para localizar todas as ocorrências:
 
@@ -190,3 +190,7 @@ Para capturar todas as dependências instaladas:
 ```bash
 brew bundle dump --force --file=~/dotfiles/Brewfile
 ```
+
+## Apps to install manually
+
+https://betterdisplay.pro/

@@ -85,7 +85,7 @@ brew "openssh"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Object-relational database system
-brew "postgresql@18"
+brew "postgresql@18", restart_service: :changed
 # Password generator
 brew "pwgen"
 # Python version management
@@ -104,6 +104,8 @@ brew "rbenv"
 brew "redis"
 # Zsh prompt for Astronauts
 brew "spaceship"
+# Modern and pretty fancy file manager for the terminal
+brew "superfile"
 # Send macOS User Notifications from the command-line
 brew "terminal-notifier"
 # Terminal multiplexer
@@ -133,6 +135,8 @@ cask "discord"
 cask "font-fira-code-nerd-font"
 # Set of tools to manage resources and applications hosted on Google Cloud
 cask "gcloud-cli"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # Reverse proxy, secure introspectable tunnels to localhost
 cask "ngrok"
 # App to write, plan, collaborate, and get organised
@@ -180,7 +184,6 @@ vscode "george-alisson.html-preview-vscode"
 vscode "github.vscode-github-actions"
 vscode "golang.go"
 vscode "grapecity.gc-excelviewer"
-vscode "hashicorp.terraform"
 vscode "koichisasada.vscode-rdbg"
 vscode "mechatroner.rainbow-csv"
 vscode "mermaidchart.vscode-mermaid-chart"
