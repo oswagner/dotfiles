@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ~/.macos — https://mths.be/macos
+# Reference from ~/.macos — https://mths.be/macos
 
 # Close any open System Preferences panes, to prevent them from overriding
 # settings we’re about to change
@@ -18,10 +18,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 ###############################################################################
 
 # Set computer name (as done via System Preferences → Sharing)
-#sudo scutil --set ComputerName "0x6D746873"
-#sudo scutil --set HostName "0x6D746873"
-#sudo scutil --set LocalHostName "0x6D746873"
-#sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "0x6D746873"
+sudo scutil --set ComputerName "wosantos"
+sudo scutil --set HostName "wosantos"
+sudo scutil --set LocalHostName "wosantos"
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server NetBIOSName -string "wosantos"
 
 # Always show scrollbars
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
@@ -35,15 +35,6 @@ defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint -bool true
 defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 
-
-# Remove duplicates in the “Open With” menu (also see `lscleanup` alias)
-# /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
-
-
-# Reveal IP address, hostname, OS version, etc. when clicking the clock
-# in the login window
-# sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
 # Disable automatic capitalization as it’s annoying when typing code
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
 
@@ -56,6 +47,10 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 # Disable smart quotes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
+# Disable show itens on desktop when click on wallpaper
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+
+
 # Set a custom wallpaper image. `DefaultDesktop.jpg` is already a symlink, and
 # all wallpapers are in `/Library/Desktop Pictures/`. The default is `Wave.jpg`.
 #rm -rf ~/Library/Application Support/Dock/desktoppicture.db
@@ -66,8 +61,14 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
 
+# Enable bluetooth on menu bar
+# 1. Update Control Center preference to show Bluetooth in the menu bar
+defaults write ~/Library/Preferences/ByHost/com.apple.controlcenter.plist Bluetooth -int 18
+# 2. Add visibility state mapping
+defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -bool true
+
 # Increase sound quality for Bluetooth headphones/headsets
-# defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
+defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
@@ -75,6 +76,58 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain InitialKeyRepeat -int 10
+
+# Enable three-finger drag for standard and multitouch trackpads
+defaults -currentHost write NSGlobalDomain com.apple.trackpad.threeFingerSwipeGesture -int 1
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerDrag -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerDrag -bool true
+
+# Disable conflicting three-finger swipe behaviors (so pages/full screen don't conflict)
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerHorizSwipeGesture -int 0
+defaults write com.apple.AppleMultitouchTrackpad TrackpadThreeFingerVertSwipeGesture -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerHorizSwipeGesture -int 0
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad TrackpadThreeFingerVertSwipeGesture -int 0
+
+
+# Disabling macOS Spotlight keyboard shortcuts and remove from menu bar
+defaults -currentHost write com.apple.Spotlight MenuItemHidden -int 1
+
+# Modify the global preferences plist
+# - 64: Spotlight search field hotkey
+# - 65: Spotlight Finder window hotkey
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 64 "<dict><key>enabled</key><false/></dict>"
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 65 "<dict><key>enabled</key><false/></dict>"
+
+# Reload the macOS shortcut daemon to apply changes immediately
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+
+# Detect active Alfred preference folder dynamically
+if [ -d "$HOME/Library/Application Support/Alfred" ]; then
+    ALFRED_DIR="$HOME/Library/Application Support/Alfred"
+else
+    echo "Warning: Alfred folder not found in Application Support. Creating default Alfred 5 path."
+    ALFRED_DIR="$HOME/Library/Application Support/Alfred"
+    mkdir -p "$ALFRED_DIR"
+fi
+
+echo "Setting Alfred hotkey to Cmd+Space..."
+
+# Key code 49 = Spacebar
+# Modifier 1048576 = Command key
+defaults write "$ALFRED_DIR/prefs.plist" hotkey.key -int 49
+defaults write "$ALFRED_DIR/prefs.plist" hotkey.mod -int 1048576
+defaults write "$ALFRED_DIR/prefs.plist" hotkey.string -string "Space"
+
+# ---------------------------------------------------------------------
+# 3. Restart Alfred to Apply Changes
+# ---------------------------------------------------------------------
+echo "Restarting Alfred to load new preferences..."
+
+# Kill Alfred if it is running
+killall Alfred 2>/dev/null || true
+
+# Reopen Alfred
+open -a "Alfred 5"
 
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
@@ -312,15 +365,15 @@ sudo chflags nohidden /Volumes
 defaults write com.apple.dock mru-spaces -bool false
 
 # Remove the auto-hiding Dock delay
-# defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-delay -float 0
 # Remove the animation when hiding/showing the Dock
-# defaults write com.apple.dock autohide-time-modifier -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
 
 # Make Dock icons of hidden applications translucent
-# defaults write com.apple.dock showhidden -bool true
+defaults write com.apple.dock showhidden -bool true
 
 # Don’t show recent applications in Dock
 # defaults write com.apple.dock show-recents -bool false
@@ -370,10 +423,12 @@ defaults write com.apple.dock autohide -bool true
 
 for app in "Activity Monitor" \
 	"cfprefsd" \
+	"ControlCenter" \
 	"Dock" \
 	"Messages" \
-	"Opera" \
 	"Photos" \
+	"WindowManager" \
+	"Spotlight" \
 	"SystemUIServer" ; do
 	# killall falha se o app não estiver rodando; não deixe isso abortar o script
 	killall "${app}" &> /dev/null || true

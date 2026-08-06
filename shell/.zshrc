@@ -11,6 +11,12 @@ DOTFILES_MODULES="$HOME/dotfiles/shell/modules"
 # -----------------------------------------------------------------------------
 export ZSH="$HOME/.oh-my-zsh"
 
+# Define a clean path for the cache file
+export ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-${SHORT_HOST:-$HOST}"
+
+# Create the parent directory if it doesn't exist yet
+mkdir -p "$(dirname "$ZSH_COMPDUMP")"
+
 # Carregar configuração do prompt ANTES do Oh My Zsh
 source "$DOTFILES_MODULES/prompt.zsh"
 
@@ -20,7 +26,6 @@ plugins=(
   sudo
   web-search
   copypath
-  zsh-nvm
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -94,4 +99,12 @@ add-zsh-hook chpwd _dir_context_switch
 _dir_context_switch
 # >>> dir-context-switcher end <<<
 
-
+# Optimize shell startup speed
+autoload -Uz compinit
+if [[ -n ${ZSH_COMPDUMP}(#qN.m-1) ]]; then
+  # File is less than 24 hours old; skip security verification checks
+  compinit -C -d "$ZSH_COMPDUMP"
+else
+  # File is old or missing; perform a full check and regenerate the cache
+  compinit -d "$ZSH_COMPDUMP"
+fi

@@ -9,6 +9,7 @@ set -e
 
 DOTFILES_DIR="$HOME/dotfiles"
 HOME_DIR="$HOME"
+CONFIG_DIR="$HOME/.config"
 
 # Cores para output
 RED='\033[0;31m'
@@ -113,6 +114,23 @@ print_info "SSH config template disponível em: $DOTFILES_DIR/ssh/config.templat
 print_info "Para usar: cp ~/dotfiles/ssh/config.template ~/.ssh/config"
 
 # -----------------------------------------------------------------------------
+# Ghostty
+# -----------------------------------------------------------------------------
+print_header "Ghostty Configuration"
+print_info "Ghostty config file disponível em $DOTFILES_DIR/macos/ghostty/"
+mkdir -p $CONFIG_DIR/ghostty
+create_symlink "$DOTFILES_DIR/macos/ghostty/config.ghostty" "$CONFIG_DIR/ghostty/config.ghostty" "config.ghostty"
+
+# -----------------------------------------------------------------------------
+# Herdr
+# -----------------------------------------------------------------------------
+print_header "Herdr Configuration"
+print_info "Herdr config file disponível em $DOTFILES_DIR/macos/herdr/"
+mkdir -p $CONFIG_DIR/herdr
+create_symlink "$DOTFILES_DIR/macos/herdr/config.toml" "$CONFIG_DIR/herdr/config.toml" "config.toml"
+
+
+# -----------------------------------------------------------------------------
 # Resumo
 # -----------------------------------------------------------------------------
 print_header "Symlinks Criados"
@@ -120,7 +138,7 @@ print_header "Symlinks Criados"
 echo "Verificando symlinks:"
 echo ""
 
-for file in .zshrc .zprofile .zshenv .gitconfig Brewfile; do
+for file in .zshrc .zprofile .zshenv .gitconfig Brewfile config.ghostty config.toml; do
     if [ -L "$HOME_DIR/$file" ]; then
         target=$(readlink "$HOME_DIR/$file")
         echo -e "${GREEN}✓${NC} $file -> $target"

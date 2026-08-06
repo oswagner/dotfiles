@@ -33,12 +33,21 @@ SPACESHIP_VENV_PREFIX="venv["
 SPACESHIP_VENV_SUFFIX="] "
 SPACESHIP_VENV_COLOR="blue"
 
-# PYENV
-SPACESHIP_PYENV_SHOW=true
-SPACESHIP_PYENV_PREFIX="("
-SPACESHIP_PYENV_SUFFIX=") "
-SPACESHIP_PYENV_SYMBOL="py "
-SPACESHIP_PYENV_COLOR="green"
+# PYTHON
+SPACESHIP_PYTHON_SHOW=true
+SPACESHIP_PYTHON_PREFIX="("
+SPACESHIP_PYTHON_SUFFIX=") "
+SPACESHIP_PYTHON_SYMBOL="py "
+SPACESHIP_PYTHON_COLOR="green"
+
+# RUBY
+SPACESHIP_RUBY_SHOW=true
+SPACESHIP_RUBY_ASYNC=true
+SPACESHIP_RUBY_PREFIX="("
+SPACESHIP_RUBY_SUFFI=")"
+SPACESHIP_RUBY_SYMBOL="ruby "
+SPACESHIP_RUBY_COLOR="red"
+
 
 # Docker
 SPACESHIP_DOCKER_SHOW=true                                      # Show current Docker version or not
@@ -63,14 +72,12 @@ SPACESHIP_PROMPT_ORDER=(
   host          # Hostname section
   git           # Git section (git_branch + git_status)
   node          # Node.js section
-  ruby          # Ruby section
   venv          # virtualenv section
-  pyenv         # Pyenv section
   docker        # Docker section
+  ruby          # Ruby section
   exec_time     # Execution time
   line_sep      # Line break
   battery       # Battery level and status
-  vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character

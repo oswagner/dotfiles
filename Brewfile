@@ -120,12 +120,22 @@ brew "watchman"
 brew "yarn"
 # Additional completion definitions for zsh
 brew "zsh-completions"
+# Password manager that keeps all passwords secure behind one password
+cask "1password"
 # Command-line interface for 1Password
 cask "1password-cli"
+# Application launcher and productivity software
+cask "alfred"
 # Inspect application bundles
 cask "apparency"
+# Display management tool
+cask "betterdisplay"
+# Volume booster and equaliser software
+cask "boom-3d"
 # Open source IDE for exploring and testing APIs
 cask "bruno"
+# Anthropic's official Claude AI desktop app
+cask "claude"
 # Terminal-based AI coding assistant
 cask "claude-code"
 # Browser for SQLite databases
@@ -163,11 +173,7 @@ cask "whatsapp"
 cask "zoom"
 mas "Clocker", id: 1056643111
 mas "Developer", id: 640199958
-mas "Keynote", id: 409183694
-mas "Meeter", id: 1510445899
-mas "Numbers", id: 409203825
 mas "Okta Verify", id: 490179405
-mas "Pages", id: 409201541
 mas "TickTick", id: 966085870
 mas "Xcode", id: 497799835
 vscode "aliariff.vscode-erb-beautify"
@@ -196,9 +202,11 @@ vscode "ms-python.black-formatter"
 vscode "ms-python.debugpy"
 vscode "ms-python.python"
 vscode "ms-python.vscode-pylance"
+vscode "ms-python.vscode-python-envs"
 vscode "ms-vscode-remote.remote-containers"
 vscode "pkief.material-icon-theme"
 vscode "prisma.prisma"
+vscode "redhat.java"
 vscode "rust-lang.rust-analyzer"
 vscode "setobiralo.erb-commenter"
 vscode "shanehofstetter.rails-open-partial"
@@ -209,15 +217,17 @@ vscode "tamasfe.even-better-toml"
 vscode "tehpeng.diagramspreviewer"
 vscode "tomoki1207.pdf"
 vscode "vmware.vscode-boot-dev-pack"
+vscode "vmware.vscode-spring-boot"
+vscode "vscjava.vscode-java-debug"
+vscode "vscjava.vscode-maven"
+vscode "vscjava.vscode-spring-boot-dashboard"
 vscode "vscjava.vscode-spring-initializr"
 vscode "yoavbls.pretty-ts-errors"
 go "golang.org/x/tools/gopls"
 uv "graphifyy[video]"
-npm "@anthropic-ai/claude-code"
 npm "@fission-ai/openspec"
 npm "@mermaid-js/mermaid-cli"
 npm "@playwright/cli"
 npm "corepack"
 npm "eas-cli"
 npm "npmrc"
-npm "xpcli"
