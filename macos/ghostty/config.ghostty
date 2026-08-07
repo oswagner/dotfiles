@@ -28,6 +28,12 @@ mouse-hide-while-typing = true
 # blueprint, chalkboard, microchip, glass, holographic, paper, retro, xray - Official variants of the Ghostty icon hand-created by artists (no AI).
 macos-icon = retro
 
+# Quick terminal configs
+keybind = global:cmd+shift+grave_accent=toggle_quick_terminal
+quick-terminal-position = bottom
+quick-terminal-screen = main
+
+
 
 # Keybindings
 # shell-integration-features = "adjust_selection"
