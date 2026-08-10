@@ -131,6 +131,14 @@ create_symlink "$DOTFILES_DIR/macos/herdr/config.toml" "$CONFIG_DIR/herdr/config
 
 
 # -----------------------------------------------------------------------------
+# Docker + docker compose
+# -----------------------------------------------------------------------------
+
+# Link it as a plugin so 'docker compose' works seamlessly
+mkdir -p ~/.docker/cli-plugins
+ln -sfn $(which docker-compose) ~/.docker/cli-plugins/docker-compose
+
+# -----------------------------------------------------------------------------
 # Resumo
 # -----------------------------------------------------------------------------
 print_header "Symlinks Criados"
