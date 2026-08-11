@@ -129,7 +129,6 @@ print_info "Herdr config file disponível em $DOTFILES_DIR/macos/herdr/"
 mkdir -p $CONFIG_DIR/herdr
 create_symlink "$DOTFILES_DIR/macos/herdr/config.toml" "$CONFIG_DIR/herdr/config.toml" "config.toml"
 
-
 # -----------------------------------------------------------------------------
 # Docker + docker compose
 # -----------------------------------------------------------------------------
@@ -139,6 +138,14 @@ mkdir -p ~/.docker/cli-plugins
 ln -sfn $(which docker-compose) ~/.docker/cli-plugins/docker-compose
 
 # -----------------------------------------------------------------------------
+# Kubecolor
+# -----------------------------------------------------------------------------
+print_header "Kubecolor Configuration"
+print_info "Kubecolor theme disponível em $DOTFILES_DIR/macos/kubecolor/"
+mkdir -p $CONFIG_DIR
+create_symlink "$DOTFILES_DIR/macos/kubecolor/catppuccin-frappe.yaml" "$CONFIG_DIR/kubecolor.yaml" "kubecolor.yaml"
+
+# -----------------------------------------------------------------------------
 # Resumo
 # -----------------------------------------------------------------------------
 print_header "Symlinks Criados"
@@ -146,14 +153,24 @@ print_header "Symlinks Criados"
 echo "Verificando symlinks:"
 echo ""
 
-for file in .zshrc .zprofile .zshenv .gitconfig Brewfile config.ghostty config.toml; do
-    if [ -L "$HOME_DIR/$file" ]; then
-        target=$(readlink "$HOME_DIR/$file")
-        echo -e "${GREEN}✓${NC} $file -> $target"
-    elif [ -f "$HOME_DIR/$file" ]; then
-        echo -e "${YELLOW}⚠${NC} $file (arquivo regular, não symlink)"
+# Caminhos completos: os arquivos de $CONFIG_DIR não ficam na raiz do $HOME
+for file in \
+    "$HOME_DIR/.zshrc" \
+    "$HOME_DIR/.zprofile" \
+    "$HOME_DIR/.zshenv" \
+    "$HOME_DIR/.gitconfig" \
+    "$HOME_DIR/Brewfile" \
+    "$CONFIG_DIR/ghostty/config.ghostty" \
+    "$CONFIG_DIR/herdr/config.toml" \
+    "$CONFIG_DIR/kubecolor.yaml"; do
+    name="${file/#$HOME_DIR/\~}"
+    if [ -L "$file" ]; then
+        target=$(readlink "$file")
+        echo -e "${GREEN}✓${NC} $name -> $target"
+    elif [ -f "$file" ]; then
+        echo -e "${YELLOW}⚠${NC} $name (arquivo regular, não symlink)"
     else
-        echo -e "${RED}✗${NC} $file (não existe)"
+        echo -e "${RED}✗${NC} $name (não existe)"
     fi
 done
 

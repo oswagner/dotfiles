@@ -6,15 +6,23 @@
 # -----------------------------------------------------------------------------
 # Python (pyenv + virtualenv)
 # -----------------------------------------------------------------------------
+# Os `eval` abaixo são guardados: em shells NÃO-login o .zprofile não roda, o
+# Homebrew ainda não está no PATH e um init sem guarda imprime
+# "command not found" a cada abertura de shell.
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if command -v pyenv >/dev/null; then
+    eval "$(pyenv init -)"
+    # virtualenv-init só existe com o plugin pyenv-virtualenv instalado
+    pyenv commands | grep -qx virtualenv-init && eval "$(pyenv virtualenv-init -)"
+fi
 
 # -----------------------------------------------------------------------------
 # Ruby (rbenv)
 # -----------------------------------------------------------------------------
-eval "$(rbenv init - zsh)"
+if command -v rbenv >/dev/null; then
+    eval "$(rbenv init - zsh)"
+fi
 
 # -----------------------------------------------------------------------------
 # Node.js (nvm)

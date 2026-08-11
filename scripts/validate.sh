@@ -5,7 +5,14 @@
 # Valida que todas as ferramentas e configurações estão funcionando
 # =============================================================================
 
-set -e
+# Sem `set -e`/`-u`/`-o pipefail` — de propósito:
+#   -e  check_command/check_path/check_file retornam 1 quando a verificação
+#       falha, o que abortaria o script na primeira ferramenta ausente, sem
+#       imprimir o resumo nem rodar o resto das verificações.
+#   -u  o script referencia vars possivelmente não definidas (ex.: $NVM_DIR)
+#       justamente para reportá-las.
+#   -o pipefail  mudaria o status de `$cmd --version | head -n1` em check_command.
+# O status final do script vem do contador $FAILED, no fim do arquivo.
 
 # Cores para output
 RED='\033[0;31m'
@@ -34,19 +41,21 @@ print_subheader() {
     echo ""
 }
 
+# Use PASSED=$((PASSED+1)), não ((PASSED++)): o pós-incremento devolve o valor
+# ANTERIOR, então em 0 o comando aritmético sai com status 1.
 check_pass() {
     echo -e "${GREEN}✓${NC} $1"
-    ((PASSED++))
+    PASSED=$((PASSED + 1))
 }
 
 check_fail() {
     echo -e "${RED}✗${NC} $1"
-    ((FAILED++))
+    FAILED=$((FAILED + 1))
 }
 
 check_warn() {
     echo -e "${YELLOW}⚠${NC} $1"
-    ((WARNINGS++))
+    WARNINGS=$((WARNINGS + 1))
 }
 
 check_info() {
@@ -137,7 +146,10 @@ print_subheader "Linguagens de Programação"
 # =============================================================================
 
 # Python via pyenv
-if check_command python "Python" "--version"; then
+# `python3`, não `python`: o macOS não fornece mais o binário `python`, e só
+# existe um shim com esse nome se o pyenv tiver alguma versão instalada
+# (hoje `pyenv global` = system).
+if check_command python3 "Python" "--version"; then
     if command -v pyenv &> /dev/null; then
         pyenv_version=$(pyenv version-name 2>/dev/null)
         check_info "Pyenv versão ativa: $pyenv_version"

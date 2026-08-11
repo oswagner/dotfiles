@@ -20,12 +20,21 @@ mkdir -p "$(dirname "$ZSH_COMPDUMP")"
 # Carregar configuração do prompt ANTES do Oh My Zsh
 source "$DOTFILES_MODULES/prompt.zsh"
 
+# FPATH extra ANTES do oh-my-zsh.sh — o compinit dele é o único da sessão,
+# então tudo que alimenta o fpath precisa estar no lugar até aqui.
+# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+# (o site-functions do próprio brew já vem do `brew shellenv` no .zprofile)
+if type brew &>/dev/null; then
+  FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
+fi
+
 # Plugins do Oh My Zsh
 plugins=(
   git
   sudo
   web-search
   copypath
+  kubectl
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -98,13 +107,3 @@ add-zsh-hook chpwd _dir_context_switch
 # Aplica imediatamente ao abrir o terminal
 _dir_context_switch
 # >>> dir-context-switcher end <<<
-
-# Optimize shell startup speed
-autoload -Uz compinit
-if [[ -n ${ZSH_COMPDUMP}(#qN.m-1) ]]; then
-  # File is less than 24 hours old; skip security verification checks
-  compinit -C -d "$ZSH_COMPDUMP"
-else
-  # File is old or missing; perform a full check and regenerate the cache
-  compinit -d "$ZSH_COMPDUMP"
-fi

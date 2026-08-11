@@ -31,6 +31,11 @@ dotfiles/
 │
 ├── macos/
 │   ├── .macos              # Preferências do macOS
+│   ├── ghostty/            # config.ghostty → ~/.config/ghostty/
+│   ├── herdr/              # config.toml → ~/.config/herdr/
+│   ├── kubecolor/          # temas do kubecolor → ~/.config/kubecolor.yaml
+│   ├── betterdisplay/      # BetterDisplay.plist
+│   ├── stats/              # Stats.plist
 │   └── themes/
 │       └── alfred/         # Temas Catppuccin para o Alfred
 │

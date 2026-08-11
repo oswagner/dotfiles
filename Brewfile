@@ -56,6 +56,8 @@ brew "harfbuzz"
 brew "gradle"
 # Graph visualization software from AT&T and Bell Labs
 brew "graphviz"
+# Kubernetes package manager
+brew "helm"
 # Agent multiplexer that lives in your terminal
 brew "herdr"
 # Lightweight and flexible command-line JSON processor
@@ -64,12 +66,22 @@ brew "jq"
 brew "node"
 # Interactive environments for writing and running code
 brew "jupyterlab"
+# Colorize your kubectl output
+brew "kubecolor"
+# Kubernetes command-line interface
+brew "kubernetes-cli"
+# Template-free customization of Kubernetes YAML manifests
+brew "kustomize"
 # DNS library written in C
 brew "ldns"
 # Provides library functionality for FIDO U2F & FIDO 2.0, including USB
 brew "libfido2"
+# Library for database change tracking
+brew "liquibase"
 # Mac App Store command-line interface
 brew "mas"
+# Run a Kubernetes cluster locally
+brew "minikube"
 # QUIC transport protocol implementation
 brew "mvfst"
 # Ambitious Vim-fork focused on extensibility and agility
@@ -85,7 +97,7 @@ brew "openssh"
 # PDF rendering library (based on the xpdf-3.0 code base)
 brew "poppler"
 # Object-relational database system
-brew "postgresql@18", restart_service: :changed
+brew "postgresql@18"
 # Password generator
 brew "pwgen"
 # Python version management
@@ -130,8 +142,6 @@ cask "alfred"
 cask "apparency"
 # Display management tool
 cask "betterdisplay"
-# Volume booster and equaliser software
-cask "boom-3d"
 # Open source IDE for exploring and testing APIs
 cask "bruno"
 # Anthropic's official Claude AI desktop app
@@ -184,6 +194,7 @@ vscode "catppuccin.catppuccin-vsc-icons"
 vscode "catppuccin.catppuccin-vsc-pack"
 vscode "clemenspeters.format-json"
 vscode "dbaeumer.vscode-eslint"
+vscode "dnicolson.binary-plist"
 vscode "docker.docker"
 vscode "esbenp.prettier-vscode"
 vscode "george-alisson.html-preview-vscode"
@@ -218,7 +229,11 @@ vscode "tehpeng.diagramspreviewer"
 vscode "tomoki1207.pdf"
 vscode "vmware.vscode-boot-dev-pack"
 vscode "vmware.vscode-spring-boot"
+vscode "vscjava.vscode-gradle"
 vscode "vscjava.vscode-java-debug"
+vscode "vscjava.vscode-java-dependency"
+vscode "vscjava.vscode-java-pack"
+vscode "vscjava.vscode-java-test"
 vscode "vscjava.vscode-maven"
 vscode "vscjava.vscode-spring-boot-dashboard"
 vscode "vscjava.vscode-spring-initializr"

@@ -23,6 +23,10 @@ alias claude-tw='CLAUDE_CONFIG_DIR=~/.claude_thoughtworks claude'
 # Substituições modernas de comandos
 alias ls='eza'
 
+# Kubecolor wrapping kubectl
+alias k=kubecolor
+alias kubectl=kubecolor
+
 # Git aliases (complementam os do oh-my-zsh)
 # alias gs='git status'
 # alias gp='git pull'
