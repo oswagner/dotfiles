@@ -140,7 +140,7 @@ desenvolvimento conforme o diretório atual, via hook `chpwd` no `.zshrc`:
 
 | Diretório      | SSH                   | npm        | gcloud       |
 | -------------- | --------------------- | ---------- | ------------ |
-| `~/Latam`      | `id_ed25519_latam`    | `LATAMXP`  | `ifec-latam` |
+| `~/Other`      | `id_ed25519_other`    | `other`  | `other` |
 | `~/Personal`   | `id_ed25519_personal` | `personal` | `personal`   |
 | fora (default) | unset                 | `default`  | unset        |
 
@@ -199,3 +199,19 @@ brew bundle dump --force --file=~/dotfiles/Brewfile
 ## Apps to install manually
 
 https://betterdisplay.pro/
+
+## Sync pastas manual
+
+Para copiar pastas específicas de um Mac para outro via rede local usando o Terminal, utilize o comando rsync com protocolo seguro SSH.
+No Mac que vai receber os arquivos, ative o acesso remoto (SSH):
+Vá em Ajustes do Sistema > Geral > Compartilhamento e ative Compartilhamento de Arquivos ou Início de Sessão Remoto (Remote Login). 
+
+Anote o endereço IP exibido (ex: 192.168.1.15). No Mac de origem, abra o aplicativo Terminal e execute o comando rsync adaptado para o seu caminho e IP:
+
+```bash
+rsync -avh /caminho/da/pasta/local usuario@192.168.1.15:/caminho/de/destino/remoto
+```
+-a (archive): Preserva permissões, datas e estrutura de diretórios.
+-v (verbose): Mostra o progresso detalhado no Terminal.
+-h (human-readable): Exibe os tamanhos dos arquivos de forma legível.
+
