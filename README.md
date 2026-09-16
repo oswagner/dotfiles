@@ -211,7 +211,8 @@ Anote o endereço IP exibido (ex: 192.168.1.15). No Mac de origem, abra o aplica
 ```bash
 rsync -avh /caminho/da/pasta/local usuario@192.168.1.15:/caminho/de/destino/remoto
 ```
--a (archive): Preserva permissões, datas e estrutura de diretórios.
--v (verbose): Mostra o progresso detalhado no Terminal.
--h (human-readable): Exibe os tamanhos dos arquivos de forma legível.
+* -a (archive): Preserva permissões, datas e estrutura de diretórios.
+* -v (verbose): Mostra o progresso detalhado no Terminal.
+* -h (human-readable): Exibe os tamanhos dos arquivos de forma legível.
+
 
