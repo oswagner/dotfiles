@@ -107,3 +107,8 @@ add-zsh-hook chpwd _dir_context_switch
 # Aplica imediatamente ao abrir o terminal
 _dir_context_switch
 # >>> dir-context-switcher end <<<
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/wosantos/.lmstudio/bin"
+# End of LM Studio CLI section
+
