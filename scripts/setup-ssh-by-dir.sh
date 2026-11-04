@@ -14,7 +14,7 @@
 #   ~/.npmrc      → ~/.npmrcs/LATAMXP         (symlink existente — não alterado)
 #
 # Mapeamento de contextos:
-#   ~/Latam    → SSH: id_ed25519_latam    | npm: LATAMXP  | gcloud: ifec-latam
+#   ~/Latam    → SSH: id_ed25519_latam    | npm: LATAMXP  | gcloud: ep-ifec
 #   ~/Personal → SSH: id_ed25519_personal | npm: personal | gcloud: personal
 #   fora       → SSH: unset               | npm: default   | gcloud: unset
 #
@@ -94,7 +94,7 @@ preflight() {
   else
     local configs
     configs=$(gcloud config configurations list --format="value(name)" 2>/dev/null)
-    echo "$configs" | grep -q "^ifec-latam$" || warn "gcloud config 'ifec-latam' não encontrada."
+    echo "$configs" | grep -q "^ep-ifec$" || warn "gcloud config 'ep-ifec' não encontrada."
     echo "$configs" | grep -q "^personal$"   || warn "gcloud config 'personal' não encontrada."
   fi
 
@@ -255,7 +255,7 @@ write_zshrc_hook() {
 #   CLOUDSDK_ACTIVE_CONFIG_NAME → gcloud    (sobrepõe configuração ativa global)
 #
 # Diretórios (case-sensitive):
-#   ~/Latam    → ifec-latam context
+#   ~/Latam    → ep-ifec context
 #   ~/Personal → personal context
 #
 # Gerenciado por setup-ssh-by-dir.sh — não edite manualmente
@@ -267,7 +267,7 @@ _dir_context_switch() {
     "$HOME"/Latam | "$HOME"/Latam/*)
       export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_latam -o IdentitiesOnly=yes"
       export NPM_CONFIG_USERCONFIG="$HOME/.npmrcs/LATAMXP"
-      export CLOUDSDK_ACTIVE_CONFIG_NAME="ifec-latam"
+      export CLOUDSDK_ACTIVE_CONFIG_NAME="ep-ifec"
       ;;
 
     # ── Personal ──────────────────────────────────────────────────────────────
@@ -337,10 +337,10 @@ print_validation() {
      # → /Users/wosantos/.npmrcs/LATAMXP
 
      echo $CLOUDSDK_ACTIVE_CONFIG_NAME
-     # → ifec-latam
+     # → ep-ifec
 
      gcloud config configurations list
-     # → ifec-latam IS_ACTIVE = true
+     # → ep-ifec IS_ACTIVE = true
 
 
 4. Contexto Personal:

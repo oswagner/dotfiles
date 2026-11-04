@@ -69,7 +69,7 @@ source "$DOTFILES_MODULES/aliases.zsh"
 #   CLOUDSDK_ACTIVE_CONFIG_NAME → gcloud    (sobrepõe configuração ativa global)
 #
 # Diretórios (case-sensitive):
-#   ~/Latam    → ifec-latam context
+#   ~/Latam    → ep-ifec context
 #   ~/Personal → personal context
 #
 # Gerenciado por setup-ssh-by-dir.sh — não edite manualmente
@@ -81,7 +81,7 @@ _dir_context_switch() {
     "$HOME"/Latam | "$HOME"/Latam/*)
       export GIT_SSH_COMMAND="ssh -i ~/.ssh/id_ed25519_latam -o IdentitiesOnly=yes"
       export NPM_CONFIG_USERCONFIG="$HOME/.npmrcs/LATAMXP"
-      export CLOUDSDK_ACTIVE_CONFIG_NAME="ifec-latam"
+      export CLOUDSDK_ACTIVE_CONFIG_NAME="ep-ifec"
       ;;
 
     # ── Personal ──────────────────────────────────────────────────────────────
